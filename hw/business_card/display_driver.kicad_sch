@@ -4,6 +4,11 @@
 	(generator_version "10.0")
 	(uuid "16deedea-c1a2-4206-9e52-370dced3d5a9")
 	(paper "A4")
+	(title_block
+		(title "Display Driver")
+		(date "2026-10-06")
+		(rev "A")
+	)
 	(lib_symbols
 		(symbol "Device:C"
 			(pin_numbers
