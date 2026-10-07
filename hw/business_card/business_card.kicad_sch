@@ -1,0 +1,198 @@
+(kicad_sch
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "694fd101-e590-408b-8a79-cc06e4456af0")
+	(paper "A4")
+	(lib_symbols)
+	(sheet
+		(at 204.47 106.68)
+		(size 26.67 25.4)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "2973b24c-38be-4273-9e60-b54fe39f6ca3")
+		(property "Sheetname" "Display"
+			(at 204.47 105.9684 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "display.kicad_sch"
+			(at 204.47 132.6646 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "business_card"
+				(path "/694fd101-e590-408b-8a79-cc06e4456af0"
+					(page "5")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 169.418 35.814)
+		(size 38.608 32.258)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "724443fa-d0d3-4bd1-b64e-1474b0ae11bb")
+		(property "Sheetname" "Display Driver"
+			(at 169.418 35.1024 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "display_driver.kicad_sch"
+			(at 169.418 68.6566 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "business_card"
+				(path "/694fd101-e590-408b-8a79-cc06e4456af0"
+					(page "4")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 129.54 81.28)
+		(size 38.1 27.94)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "796a0d4d-6576-4209-8ba3-6f6e6880786c")
+		(property "Sheetname" "MCU"
+			(at 129.54 80.5684 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "mcu.kicad_sch"
+			(at 129.54 109.8046 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "business_card"
+				(path "/694fd101-e590-408b-8a79-cc06e4456af0"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 24.384 24.892)
+		(size 40.386 27.686)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "ecfd019c-f025-4a3f-92a3-e443405f1230")
+		(property "Sheetname" "Power Input"
+			(at 24.384 24.1804 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "power_input.kicad_sch"
+			(at 24.384 53.1626 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "business_card"
+				(path "/694fd101-e590-408b-8a79-cc06e4456af0"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+	(embedded_fonts no)
+)
