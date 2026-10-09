@@ -1,3 +1,4 @@
 {
-   "cmake.sourceDirectory": "C:/Users/adamh/business_card/fw/business_card_fw/cmake/business_card_fw/default"
+   "cmake.sourceDirectory": "C:/Users/adamh/business_card/fw/business_card_fw/cmake/business_card_fw/default",
+   "mplab.clangd.compileCommandsDir": "${workspaceFolder}\\_build\\business_card_fw\\default"
 }

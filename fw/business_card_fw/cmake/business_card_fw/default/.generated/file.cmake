@@ -15,7 +15,10 @@ foreach(source_file ${business_card_fw_default_default_XC8_FILE_TYPE_assemblePre
         set_source_files_properties(${source_file} PROPERTIES INCLUDE_DIRECTORIES "$<PATH:NORMAL_PATH,$<PATH:REMOVE_FILENAME,${source_file}>>")
 endforeach()
 
-set(business_card_fw_default_default_XC8_FILE_TYPE_compile "${CMAKE_CURRENT_SOURCE_DIR}/../../../main.c")
+set(business_card_fw_default_default_XC8_FILE_TYPE_compile
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../drivers/display_mode_indicator.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../main.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../src/config.c")
 set_source_files_properties(${business_card_fw_default_default_XC8_FILE_TYPE_compile} PROPERTIES LANGUAGE C)
 set(business_card_fw_default_default_XC8_FILE_TYPE_link)
 set(business_card_fw_default_image_name "default.elf")
