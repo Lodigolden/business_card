@@ -148,7 +148,7 @@
 			(mirror no)
 			(drillshape 0)
 			(scaleselection 1)
-			(outputdirectory "../../prod/10062026/")
+			(outputdirectory "../../prod/10082026/")
 		)
 	)
 	(footprint "proj:github_qr"
