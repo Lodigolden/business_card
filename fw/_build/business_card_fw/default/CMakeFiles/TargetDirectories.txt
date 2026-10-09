@@ -1,0 +1,4 @@
+C:/Users/adamh/business_card/fw/_build/business_card_fw/default/CMakeFiles/business_card_fw_default_default_XC8_compile.dir
+C:/Users/adamh/business_card/fw/_build/business_card_fw/default/CMakeFiles/business_card_fw_default_image_c1JZO_ti.dir
+C:/Users/adamh/business_card/fw/_build/business_card_fw/default/CMakeFiles/edit_cache.dir
+C:/Users/adamh/business_card/fw/_build/business_card_fw/default/CMakeFiles/rebuild_cache.dir

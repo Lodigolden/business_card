@@ -1,0 +1,8 @@
+[
+{
+  "directory": "C:/Users/adamh/business_card/fw/_build/business_card_fw/default",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc8\\v2.45\\bin\\xc8-cc.exe -DXPRJ_default=default -D__16F15245__ -c -mcpu=16F15245 -mdfp=C:/Users/adamh/.mchp_packs/Microchip/PIC16F1xxxx_DFP/1.32.471/xc8 -fno-short-double -fno-short-float -O0 -maddrqual=ignore -mwarn=-3 -msummary=-psect,-class,+mem,-hex,-file -ginhx32 -Wl,--data-init -mno-keep-startup -mno-osccal -mno-resetbits -mno-save-resetbits -mno-download -mno-stackcall -mno-default-config-bits -std=c99 -gdwarf-3 -mstack=compiled:auto:auto -o CMakeFiles\\business_card_fw_default_default_XC8_compile.dir\\C_\\Users\\adamh\\business_card\\fw\\main.c.p1 -c C:\\Users\\adamh\\business_card\\fw\\main.c",
+  "file": "C:\\Users\\adamh\\business_card\\fw\\main.c",
+  "output": "CMakeFiles\\business_card_fw_default_default_XC8_compile.dir\\C_\\Users\\adamh\\business_card\\fw\\main.c.p1"
+}
+]

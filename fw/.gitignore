@@ -1,0 +1,30 @@
+# MPLAB X project folder
+project_name.X/
+
+# Build and debug artifacts
+*.d
+*.pre
+*.p1
+*.lst
+*.sym
+*.obj
+*.o
+*.sdb
+*.obj.dmp
+*.map
+*.log
+*.log.inx
+
+# Generated files
+*.generated_files
+
+# Temporary and cache folders
+build/
+nbproject/private/
+nbproject/Package-*.bash
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+funclist
