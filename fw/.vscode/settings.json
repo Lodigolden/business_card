@@ -1,0 +1,11 @@
+{
+   "cmake.sourceDirectory": "C:/Users/adamh/business_card/fw/cmake/fw/default",
+   "mplab.clangd.compileCommandsDir": "${workspaceFolder}/_build/fw/default",
+   "memory-inspector.debugTypes": [
+      "arm-debugger",
+      "embedded-debug",
+      "gdb",
+      "gdbtarget",
+      "mplab-core-da"
+   ]
+}

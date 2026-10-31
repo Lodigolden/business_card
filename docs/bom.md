@@ -27,4 +27,4 @@
 | 4.7kOhm 0402 Resistor | RK73H1ERTTP4701F | 2 |
 | 470kOhm 0402 Resistor | RMCF0402FT470K | 1 |
 | 5.1kOhm 0402 Resistor | ERA-2ARC512X | 2 |
-| 7 Segment Display | VDMG10A0 | 4 |
+| 7 Segment Display | VDMG10C0 | 4 |
