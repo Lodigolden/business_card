@@ -17,6 +17,7 @@ endforeach()
 
 set(business_card_fw_default_default_XC8_FILE_TYPE_compile
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../drivers/display_mode_indicator.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../drivers/sseg_driver.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../main.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../src/config.c")
 set_source_files_properties(${business_card_fw_default_default_XC8_FILE_TYPE_compile} PROPERTIES LANGUAGE C)

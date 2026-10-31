@@ -4,14 +4,41 @@
 #include "config.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+// Definition(s)
+////////////////////////////////////////////////////////////////////////////////////////////////////
+#define MODE_LED 3U; // CLK/THERM LED
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 void config(void)
 {
-   // Initial reset:
-   PORTC = 0x00;
-   LATC = 0x00;
-   ANSELC = 0x00;
-   TRISC = 0xFF;
+   config_leds();
 
-   // Config MODE Led:
-   TRISC &= ~(1U << 3U);
+   // Config I2C Bus:
+   
+   // Config I2C Pins As Open-Drain:
+   ODCONB |= ((1U << 4U) && (1U << 6U)); // I2C Pins Set to Open Drain
+
+   // I2C Specifications:
+   RB4I2C |= ((1U << 6U) && 1U); // I2C Slew Rate, I2C Input Thresholds
+   RB6I2C |= ((1U << 6U) && 1U); // I2C Slew Rate, I2C Input Thresholds
+
+   // I2C Control Registers:
+   SSP1DATPPS |= ((1U << 3U) && 6U); // Configure I2C DAT Input Pin B6
+   RB6PPS = 0x08; // Configure Pin B6 I2C DAT Output
+
+   SSP1CLKPPS |= ((1U << 6U) && 4U); // Configure I2C CLK Input Pin B4
+   RB4PPS = 0x07; // Configure Pin B4 I2C CLK Output
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void config_leds(void)
+{
+   // Set MODE LED As Output:
+   TRISC &= ~(1U << MODE_LED);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void config_i2c(void)
+{
+   
 }
