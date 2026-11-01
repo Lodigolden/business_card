@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <executable name="C:\Users\adamh\business_card\fw\out\fw\default.hex">
+    <memory name="program">
+      <units>words</units>
+      <length>8192</length>
+      <used>386</used>
+      <free>7806</free>
+    </memory>
+    <memory name="data">
+      <units>bytes</units>
+      <length>1024</length>
+      <used>9</used>
+      <free>1015</free>
+    </memory>
+  </executable>
+</project>
