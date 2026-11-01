@@ -1,0 +1,37 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"15 C:\Users\adamh\business_card\fw\src\hw_drivers/../mcu_drivers/gpio.h
+[v _set_pin `(v ~T0 @X0 0 ef2`uc`uc ]
+"23
+[v _clear_pin `(v ~T0 @X0 0 ef2`uc`uc ]
+"10 C:\Users\adamh\business_card\fw\src\hw_drivers\display_mode_indicator.c
+[v _set_display_indicator_mode `(v ~T0 @X0 1 ef1`a ]
+"11
+{
+[e :U _set_display_indicator_mode ]
+"10
+[v _mode `a ~T0 @X0 1 r1 ]
+"11
+[f ]
+"12
+[e $ ! != -> _mode `i -> 0 `i 2  ]
+"13
+{
+"14
+[e ( _set_pin (2 , -> -> 67 `ui `uc -> -> 3 `ui `uc ]
+"15
+}
+[e $U 3  ]
+"16
+[e :U 2 ]
+"17
+{
+"18
+[e ( _clear_pin (2 , -> -> 67 `ui `uc -> -> 3 `ui `uc ]
+"19
+}
+[e :U 3 ]
+"21
+[e $UE 1  ]
+"22
+[e :UE 1 ]
+}

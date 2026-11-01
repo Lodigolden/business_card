@@ -1,0 +1,4 @@
+C:/Users/adamh/business_card/fw/_build/fw/default/CMakeFiles/fw_default_default_XC8_compile.dir
+C:/Users/adamh/business_card/fw/_build/fw/default/CMakeFiles/fw_default_image_7VxbsBfP.dir
+C:/Users/adamh/business_card/fw/_build/fw/default/CMakeFiles/edit_cache.dir
+C:/Users/adamh/business_card/fw/_build/fw/default/CMakeFiles/rebuild_cache.dir
