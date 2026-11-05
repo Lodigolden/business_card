@@ -6,66 +6,61 @@
 #include <xc.h>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void set_pin(char bank, uint8_t pin)
+// Definition(s)
+////////////////////////////////////////////////////////////////////////////////////////////////////
+#define MODE_PIN 1U << 3U
+#define SET_PIN  1U << 6U
+#define SEL_PIN  1U << 7U
+
+// INTCON Bits
+#define GIE 1U << 7U // Global Interrupt Enable
+#define PEIE 1U << 6U // Peripheral Interrupt Enable
+
+// PIE0 Bits
+#define IOCIE 1U << 4U // Interrupt-on-Change Enable
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void config_gpio(void)
 {
-   // Check that pin is within range:
-   if (pin > 7U)
+   _config_mode();
+   _config_input_interrupts();
+
+   return;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void set_display_indicator_mode(bool mode)
+{
+   if (mode)
    {
-      return;
+      LATC |= MODE_PIN;
    }
-
-   // Enable Output:
-   switch (bank)
+   else
    {
-      case 'A':
-         TRISA &= ~(1U << pin);
-         LATA |= 1U << pin;
-         break;
-
-      case 'B':
-         TRISB &= ~(1U << pin);
-         LATB |= 1U << pin;
-         break;
-
-      case 'C':
-         TRISC &= ~(1U << pin);
-         LATC |= 1U << pin;
-         break;
-         
-      default:
-         return;
+      LATC &= ~MODE_PIN;
    }
 
    return;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void clear_pin(char bank, uint8_t pin)
+void _config_mode(void)
 {
-   // Check that pin is within range:
-   if (pin > 7U)
-   {
-      return;
-   }
-
-   // Disable Output:
-   switch (bank)
-   {
-      case 'A':
-         LATA &= ~(1U << pin);
-         break;
-
-      case 'B':
-         LATB &= ~(1U << pin);
-         break;
-
-      case 'C':
-         LATC &= ~(1U << pin);
-         break;
-         
-      default:
-         return;
-   }
+   TRISC &= ~MODE_PIN; // Set MODE pin to OUTPUT
 
    return;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void _config_input_interrupts(void)
+{
+   // Set interrupt pins as input:
+   TRISC |= SEL_PIN | SET_PIN;
+
+   // Interrupt control:
+   INTCON |= GIE | PEIE; // Interrupt Control Register
+   PIE0 |= IOCIE; // Peripheral Interrupt Enable Register 0
+
+   // Interrupt-on-Change config:
+   IOCCP |= SEL_PIN; // Interrupt on SEL pin RISING edge
 }

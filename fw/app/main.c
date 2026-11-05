@@ -9,27 +9,30 @@
 #include <xc.h>
 
 #pragma config CONFIG1 = 0x1101
+#pragma config WDTE = OFF // Disable watchdog.
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Include(s)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+#include "state_machine.h"
 #include "../src/bsp/business_card.h"
-#include "../src/hw_drivers/display_mode_indicator.h"
-#include "../src/hw_drivers/sseg_display.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-int main(){
+int main(void)
+{
+   // System Configuration
    config();
+   uint8_t count = 0U;
 
    while(1)
    {
-      set_sseg_digit();
-
-      set_display_indicator_mode(CLOCK);
-      __delay_ms(500);
-      set_display_indicator_mode(THERM);
-      __delay_ms(500);
+      set_sseg_digit(count);
+      count = (count == 9U) ? 0U : count + 1U;
+      __delay_ms(1000);
    }
+
+   // System State Machine:
+   // system_state_machine();
 
    return 0;
 }
