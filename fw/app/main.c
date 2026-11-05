@@ -22,17 +22,9 @@ int main(void)
 {
    // System Configuration
    config();
-   uint8_t count = 0U;
-
-   while(1)
-   {
-      set_sseg_digit(count);
-      count = (count == 9U) ? 0U : count + 1U;
-      __delay_ms(1000);
-   }
 
    // System State Machine:
-   // system_state_machine();
+   system_state_machine();
 
    return 0;
 }

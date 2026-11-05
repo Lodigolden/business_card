@@ -9,10 +9,10 @@
 // Definition(s)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // GPIO expander I2C addresses.
-#define SSEG_12_ADDR_WRITE 0x40
-#define SSEG_12_ADDR_READ  0x41
-#define SSEG_34_ADDR_WRITE 0x42
-#define SSEG_34_ADDR_READ  0x43
+#define SSEG_01_ADDR_WRITE 0x40
+#define SSEG_01_ADDR_READ  0x41
+#define SSEG_23_ADDR_WRITE 0x42
+#define SSEG_23_ADDR_READ  0x43
 
 // Control registers that set which LEDs are driven.
 #define SSEG_OUTPUT_1 0x02
@@ -44,68 +44,80 @@
 void config_sseg_display(void)
 {
    // Set all driver pins as outputs:
-   i2c_transmit_data(SSEG_12_ADDR_WRITE, SSEG_CONFIG_1, 0x00);
-   i2c_transmit_data(SSEG_12_ADDR_WRITE, SSEG_CONFIG_2, 0x00);
+   i2c_transmit_data(SSEG_01_ADDR_WRITE, SSEG_CONFIG_1, 0x00);
+   i2c_transmit_data(SSEG_01_ADDR_WRITE, SSEG_CONFIG_2, 0x00);
+   i2c_transmit_data(SSEG_23_ADDR_WRITE, SSEG_CONFIG_1, 0x00);
+   i2c_transmit_data(SSEG_23_ADDR_WRITE, SSEG_CONFIG_2, 0x00);
 
    return;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void set_sseg_digit(uint8_t val)
+void set_sseg_digit(uint8_t dig, uint8_t val)
 {
    // Early return catch:
-   if (val > 9U)
+   if ((val > 9U) || (dig > 3U))
    {
       return;
    }
 
-   uint8_t i2c_write_val = 0x00;
+   // Set digit.
+   uint8_t device = SSEG_01_ADDR_WRITE;
+   uint8_t output = SSEG_OUTPUT_1;
+
+   switch (dig)
+   {
+      case 0U:
+         break;
+      case 1U:
+         output = SSEG_OUTPUT_2;
+         break;
+      case 2U:
+         device = SSEG_23_ADDR_WRITE;
+         break;
+      case 3U:
+         device = SSEG_23_ADDR_WRITE;
+         output = SSEG_OUTPUT_2;
+   }
+
+   // Set digit value.
+   uint8_t digit_val = 0x00;
 
    switch (val)
    {
       case 0U:
-         i2c_write_val = DISP_0;
+         digit_val = DISP_0;
          break;
-      
       case 1U:
-         i2c_write_val = DISP_1;
+         digit_val = DISP_1;
          break;
-      
       case 2U:
-         i2c_write_val = DISP_2;
+         digit_val = DISP_2;
          break;
-
       case 3U:
-         i2c_write_val = DISP_3;
+         digit_val = DISP_3;
          break;
-
       case 4U:
-         i2c_write_val = DISP_4;
+         digit_val = DISP_4;
          break;
-
       case 5U:
-         i2c_write_val = DISP_5;
+         digit_val = DISP_5;
          break;
-      
       case 6U:
-         i2c_write_val = DISP_6;
+         digit_val = DISP_6;
          break;
-
       case 7U:
-         i2c_write_val = DISP_7;
+         digit_val = DISP_7;
          break;
-
       case 8U:
-         i2c_write_val = DISP_8;
+         digit_val = DISP_8;
          break;
-
       case 9U:
-         i2c_write_val = DISP_9;
+         digit_val = DISP_9;
          break;
    }
 
-   i2c_transmit_data(SSEG_12_ADDR_WRITE, SSEG_OUTPUT_1, i2c_write_val);
-   // i2c_transmit_data(SSEG_12_ADDR_WRITE, SSEG_OUTPUT_2, 0x00);
+   i2c_transmit_data(device, output, digit_val);
 
    return;
 }

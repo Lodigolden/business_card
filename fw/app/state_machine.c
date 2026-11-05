@@ -18,9 +18,18 @@ volatile bool g_mode = CLOCK;
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void system_state_machine(void)
 {
+   // State Variables
+   uint8_t count = 0U;
+
    while(1)
    {
-      ; // Intentionally left empty.
+      if (!g_mode)
+      {
+         set_sseg_digit(0U, count);
+         count = (count == 9U) ? 0U : count + 1U;
+      }
+
+      __delay_ms(1000);
    }
 
    return;
