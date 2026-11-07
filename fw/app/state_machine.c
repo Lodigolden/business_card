@@ -25,8 +25,11 @@ void system_state_machine(void)
    {
       if (!g_mode)
       {
-         set_sseg_digit(0U, count);
-         count = (count == 9U) ? 0U : count + 1U;
+         for (uint8_t idx = 0U; idx < 3U; idx++)
+         {
+            set_sseg_digit(idx, count);
+         }
+         count = (count == 15U) ? 0U : count + 1U;
       }
 
       __delay_ms(1000);

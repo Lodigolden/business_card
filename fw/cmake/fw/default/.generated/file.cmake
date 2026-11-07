@@ -20,6 +20,7 @@ set(fw_default_default_XC8_FILE_TYPE_compile
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../app/state_machine.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../src/bsp/business_card.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../src/hw_drivers/sseg_display.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../src/hw_drivers/tmp_snsr.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../src/mcu_drivers/gpio.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../src/mcu_drivers/i2c.c")
 set_source_files_properties(${fw_default_default_XC8_FILE_TYPE_compile} PROPERTIES LANGUAGE C)

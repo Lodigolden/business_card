@@ -18,28 +18,28 @@
 
 // SSPxCON2 Bits
 #define SEN 1U // Start Condition Enable Bit
-#define PEN (1U << 2U) // Stop Condition Enable Bit
+#define PEN 1U << 2U // Stop Condition Enable Bit
 
 // RxyI2C Bits
 #define TH 1U // I2C Input Thresholds
-#define SLEW (1U << 6U) // I2C Slew Rate Limiting Enable
+#define SLEW 1U << 6U // I2C Slew Rate Limiting Enable
 
 // xxxPPS Bits
-#define PPS_PORTB (1U << 3U) // PORT B
+#define PPS_PORTB 1U << 3U // PORT B
 
 // ANSELx Bits
-#define ANSELx4 (1U << 4U) // Pin 4
-#define ANSELx6 (1U << 6U) // Pin 6
+#define ANSELx4 1U << 4U // Pin 4
+#define ANSELx6 1U << 6U // Pin 6
 
 // ODCONB Bits
-#define ODCx4 (1U << 4U) // Pin 4
-#define ODCx6 (1U << 6U) // Pin 6
+#define ODCx4 1U << 4U // Pin 4
+#define ODCx6 1U << 6U // Pin 6
 
 // SSPxADD Bits
 #define BAUD_DIV 0x4F // 100kHz BAUD (32MHz FOSC)
 
 // PIR1 Bits
-#define SSP1IF (1U << 1U) // MSSP1 Interrupt Flag
+#define SSP1IF 1U << 1U // MSSP1 Interrupt Flag
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void config_i2c(void)
@@ -78,12 +78,19 @@ void config_i2c(void)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void i2c_transmit_data(uint8_t addr, uint8_t reg, uint8_t data)
+void i2c_transmit_data(uint8_t addr, size_t reg_size, uint8_t reg, uint8_t *p_data)
 {
+   // Convert 7b I2C to 8b I2C address:
+   addr = (uint8_t)(addr << 1U);
+
    _i2c_start();
+
    _i2c_write_byte(addr);
    _i2c_write_byte(reg);
-   _i2c_write_byte(data);
+   for (uint8_t idx = 0U; idx < reg_size; idx++)
+   {
+      _i2c_write_byte(*(p_data + idx));
+   }
    _i2c_stop();
 
    return;
@@ -98,10 +105,9 @@ void _i2c_start(void)
    // Initiate start condition.
    SSP1CON2 |= SEN;
 
-   // Wait for MSP Interrupt:
    while (!(PIR1 & SSP1IF))
    {
-      ; // Wait for hardware to set interrupt.
+      ; // Wait for hardware to set MSP interrupt.
    }
 
    // Clear the interrupt:
@@ -117,12 +123,11 @@ void _i2c_stop(void)
    PIR1 &= ~SSP1IF;
 
    // Send stop condition.
-   SSP1CON2 |= PEN; // Set PEN bit.
+   SSP1CON2 |= PEN;
 
-   // Wait for MSP Interrupt:
    while (!(PIR1 & SSP1IF))
    {
-      ; // Wait for hardware to set interrupt.
+      ; // Wait for hardware to set MSP interrupt.
    }
 
    // Clear the interrupt:
@@ -137,10 +142,9 @@ void _i2c_write_byte(uint8_t data)
    // Load I2C buffer w/ client address.
    SSP1BUF = data;
 
-   // Wait for MSP interrupt:
    while (!(PIR1 & SSP1IF))
    {
-      ; // Wait for hardware to set interrupt.
+      ; // Wait for hardware to set MSP interrupt.
    }
 
    // Clear the interrupt:
