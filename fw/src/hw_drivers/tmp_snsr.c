@@ -22,3 +22,14 @@ void config_temp_sensor(void)
 {
    return;
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+uint16_t read_temp(void)
+{
+   uint8_t data[TMP_SNSR_REG_SIZE];
+   i2c_receive_data(TMP_SNSR_ADDR, TMP_SNSR_REG_SIZE, TEMP_READ, &data);
+
+   uint16_t sized_data = ((data[0U] << 8U) | data[1U]);
+
+   return sized_data;
+}

@@ -10,6 +10,7 @@
 // Include(s)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 #include "../hw_drivers/sseg_display.h"
+#include "../hw_drivers/tmp_snsr.h"
 
 #include "../mcu_drivers/gpio.h"
 #include "../mcu_drivers/i2c.h"

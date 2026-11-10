@@ -19,6 +19,9 @@
 // SSPxCON2 Bits
 #define SEN 1U // Start Condition Enable Bit
 #define PEN 1U << 2U // Stop Condition Enable Bit
+#define RCEN 1U << 3U // Receive Enable Bit
+#define ACKEN 1U << 4U // Acknowledge Sequence Enable Bit
+#define ACKDT 1U << 5U // Acknowledge Data Bit
 
 // RxyI2C Bits
 #define TH 1U // I2C Input Thresholds
@@ -87,9 +90,28 @@ void i2c_transmit_data(uint8_t addr, size_t reg_size, uint8_t reg, uint8_t *p_da
 
    _i2c_write_byte(addr);
    _i2c_write_byte(reg);
-   for (uint8_t idx = 0U; idx < reg_size; idx++)
+   for (size_t idx = 0U; idx < reg_size; idx++)
    {
       _i2c_write_byte(*(p_data + idx));
+   }
+   _i2c_stop();
+
+   return;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void i2c_receive_data(uint8_t addr, size_t reg_size, uint8_t reg, uint8_t *p_data)
+{
+   // Convert 7b I2C to 8b I2C address:
+   addr = (uint8_t)((addr << 1U) | 1U);
+
+   _i2c_start();
+
+   _i2c_write_byte(addr);
+   _i2c_write_byte(reg);
+   for (size_t idx = 0U; idx < reg_size; idx++)
+   {
+      *(p_data + idx) = _i2c_read_byte();
    }
    _i2c_stop();
 
@@ -139,7 +161,7 @@ void _i2c_stop(void)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void _i2c_write_byte(uint8_t data)
 {
-   // Load I2C buffer w/ client address.
+   // Load I2C buffer w/ outgoing data.
    SSP1BUF = data;
 
    while (!(PIR1 & SSP1IF))
@@ -151,4 +173,34 @@ void _i2c_write_byte(uint8_t data)
    PIR1 &= ~SSP1IF;
 
    return;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+uint8_t _i2c_read_byte(void)
+{
+   // Start receiving.
+   SSP1CON2 |= RCEN;
+
+   while (!(PIR1 & SSP1IF))
+   {
+      ; // Wait for hardware to set MSP interrupt.
+   }
+
+   // Clear interrupt:
+   PIR1 &= ~SSP1IF;
+   uint8_t data = SSP1BUF;
+
+   // Initiate ACK sequence:
+   SSP1CON2 &= ~ACKDT;
+   SSP1CON2 |= ACKEN;
+
+   while (!(PIR1 & SSP1IF))
+   {
+      ; // Wait for hardware to set MSP interrupt.
+   }
+
+   // Clear interrupt:
+   PIR1 &= ~SSP1IF;
+
+   return data;
 }

@@ -32,6 +32,8 @@ void system_state_machine(void)
          count = (count == 15U) ? 0U : count + 1U;
       }
 
+      uint16_t data = read_temp();
+
       __delay_ms(1000);
    }
 
