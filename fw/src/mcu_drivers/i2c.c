@@ -103,13 +103,14 @@ void i2c_receive_data(uint8_t addr, size_t reg_size, uint8_t reg, uint8_t *p_dat
 {
    // Convert 7b I2C to 8b I2C address:
    uint8_t addr_write = (uint8_t)(addr << 1U);
-   uint8_t addr_read = (uint8_t)((addr << 1U) | 1U);
+   uint8_t addr_read = ((uint8_t)(addr << 1U) | 1U);
 
+   // Device + register to read from:
    _i2c_start();
-
    _i2c_write_byte(addr_write);
    _i2c_write_byte(reg);
 
+   // Read data:
    _i2c_start();
    _i2c_write_byte(addr_read);
    for (size_t idx = 0U; idx < reg_size; idx++)

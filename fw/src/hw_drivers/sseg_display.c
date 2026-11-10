@@ -23,12 +23,6 @@
 #define SSEG_OUTPUT_1 0x02
 #define SSEG_OUTPUT_2 0x03
 
-// Drive strength control registers.
-#define SSEG_DRIVE_1 0x40
-#define SSEG_DRIVE_2 0x41
-#define SSEG_DRIVE_3 0x42
-#define SSEG_DRIVE_4 0x43
-
 // SSEG Encoder Values
 #define DISP_0 0x3F
 #define DISP_1 0x06
@@ -89,62 +83,69 @@ void set_sseg_digit(uint8_t dig, uint8_t val)
          break;
    }
 
-   // Set digit value.
-   uint8_t digit_val = 0x00;
-
-   switch (val)
-   {
-      case 0U:
-         digit_val = DISP_0;
-         break;
-      case 1U:
-         digit_val = DISP_1;
-         break;
-      case 2U:
-         digit_val = DISP_2;
-         break;
-      case 3U:
-         digit_val = DISP_3;
-         break;
-      case 4U:
-         digit_val = DISP_4;
-         break;
-      case 5U:
-         digit_val = DISP_5;
-         break;
-      case 6U:
-         digit_val = DISP_6;
-         break;
-      case 7U:
-         digit_val = DISP_7;
-         break;
-      case 8U:
-         digit_val = DISP_8;
-         break;
-      case 9U:
-         digit_val = DISP_9;
-         break;
-      case 10U:
-         digit_val = DISP_A;
-         break;
-      case 11U:
-         digit_val = DISP_B;
-         break;
-      case 12U:
-         digit_val = DISP_C;
-         break;
-      case 13U:
-         digit_val = DISP_D;
-         break;
-      case 14U:
-         digit_val = DISP_E;
-         break;
-      case 15U:
-         digit_val = DISP_F;
-         break;
-   }
+   uint8_t digit_val = _encode_dec(val);
 
    i2c_transmit_data(device, SSEG_REG_SIZE, output, &digit_val);
 
    return;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+uint8_t _encode_dec(uint8_t val_dec)
+{
+   uint8_t val_hex = 0x00;
+
+   switch (val_dec)
+   {
+      case 0U:
+         val_hex = DISP_0;
+         break;
+      case 1U:
+         val_hex = DISP_1;
+         break;
+      case 2U:
+         val_hex = DISP_2;
+         break;
+      case 3U:
+         val_hex = DISP_3;
+         break;
+      case 4U:
+         val_hex = DISP_4;
+         break;
+      case 5U:
+         val_hex = DISP_5;
+         break;
+      case 6U:
+         val_hex = DISP_6;
+         break;
+      case 7U:
+         val_hex = DISP_7;
+         break;
+      case 8U:
+         val_hex = DISP_8;
+         break;
+      case 9U:
+         val_hex = DISP_9;
+         break;
+      case 10U:
+         val_hex = DISP_A;
+         break;
+      case 11U:
+         val_hex = DISP_B;
+         break;
+      case 12U:
+         val_hex = DISP_C;
+         break;
+      case 13U:
+         val_hex = DISP_D;
+         break;
+      case 14U:
+         val_hex = DISP_E;
+         break;
+      case 15U:
+         val_hex = DISP_F;
+         break;
+   }
+
+   return val_hex;
 }

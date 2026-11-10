@@ -8,43 +8,73 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Definition(s)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-#define TICK_RATE 100
+#define TICK_RATE 1000
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Global(s)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-volatile bool g_mode = CLOCK;
+volatile bool g_mode = false;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void system_state_machine(void)
 {
    // State Variables
-   uint8_t count = 0U;
+   uint8_t print_data[4U];
+   uint8_t clock_data[4U];
 
    while(1)
    {
-      // if (!g_mode)
-      // {
-      //    for (uint8_t idx = 0U; idx < 3U; idx++)
-      //    {
-      //       set_sseg_digit(idx, count);
-      //    }
-      //    count = (count == 15U) ? 0U : count + 1U;
-      // }
+      if (clock_data[0U] < 9U)
+      {
+         clock_data[0U]++;
+      }
+      else
+      {
+         clock_data[0U] = 0U;
+         if (clock_data[1U] < 9U)
+         {
+            clock_data[1U]++;
+         }
+         else
+         {
+            clock_data[1U] = 0U;
+            if (clock_data[2U] < 9U)
+            {
+               clock_data[2U]++;
+            }
+            else
+            {
+               clock_data[2U] = 0U;
+               if (clock_data[3U] < 9U)
+               {
+                  clock_data[3U]++;
+               }
+               else
+               {
+                  clock_data[3U] = 0U;
+               }
+            }
+         }
+      }
 
+      if (g_mode) // Therm
+      {
+         read_temp(print_data, true);
+      }
+      else // Clock
+      {
+         for (size_t idx = 0U; idx < 4U; idx++)
+         {
+            print_data[idx] = clock_data[idx];
+         }
+      }
 
-      uint16_t data = read_temp();
-      uint8_t bit1 = data & 0x000F;
-      uint8_t bit2 = (data >> 4U) & 0x000F;
-      uint8_t bit3 = (data >> 8U) & 0x000F;
-      uint8_t bit4 = (data >> 12U) & 0x000F;
+      set_sseg_digit(0U, print_data[0U]);
+      set_sseg_digit(1U, print_data[1U]);
+      set_sseg_digit(2U, print_data[2U]);
+      set_sseg_digit(3U, print_data[3U]);
 
-      set_sseg_digit(0, bit1);
-      set_sseg_digit(1, bit2);
-      set_sseg_digit(2, bit3);
-      set_sseg_digit(3, bit4);
-
-      __delay_ms(1000);
+      __delay_ms(TICK_RATE);
    }
 
    return;

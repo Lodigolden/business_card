@@ -8,17 +8,6 @@
 #include <stdint.h>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-/// @brief Packet for transmitting I2C data.
-////////////////////////////////////////////////////////////////////////////////////////////////////
-typedef struct
-{
-    uint8_t addr; // Slave address.
-    size_t reg_size; // Number of bytes in each device register.
-    uint8_t reg; // Slave register to write to.
-    uint8_t *p_data; // Data to write / read.
-} I2C_Packet;
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
 /// @brief Configures the I2C peripheral.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void config_i2c(void);
@@ -26,20 +15,20 @@ void config_i2c(void);
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 /// @brief Send a package across the I2C bus.
 ///
-/// @param[in] addr      7b slave I2C address.
-/// @param[in] reg_size  Number of bytes in register.
-/// @param[in] reg       Slave register to write to.
-/// @param[in] p_data    Data to write to slave.
+/// @param[in] addr     7b slave I2C address.
+/// @param[in] reg_size Number of bytes in register.
+/// @param[in] reg      Slave register to write to.
+/// @param[in] p_data   Data to write to slave.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void i2c_transmit_data(uint8_t addr, size_t reg_size, uint8_t reg, uint8_t *p_data);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 /// @brief Receives data from devices on the I2C bus.
 ///
-/// @param[in] addr     7b slave I2C address.
-/// @param[in] reg_size Number of bytes in register
-/// @param[in] reg      Slave register to read from.
-/// @param[out] p_data  Array of data to fill.
+/// @param[in]  addr     7b slave I2C address.
+/// @param[in]  reg_size Number of bytes in register
+/// @param[in]  reg      Slave register to read from.
+/// @param[out] p_data   Array of data to fill.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void i2c_receive_data(uint8_t addr, size_t reg_size, uint8_t reg, uint8_t *p_data);
 
@@ -61,7 +50,7 @@ void _i2c_stop(void);
 void _i2c_write_byte(uint8_t data);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-/// @brief Reads a byte from the I2C bus.
+/// @return The read byte.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 uint8_t _i2c_read_byte(void);
 
