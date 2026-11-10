@@ -9,19 +9,19 @@
 // Definition(s)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // GPIO expander I2C addresses.
-#define SSEG_32_ADDR 0x20
 #define SSEG_10_ADDR 0x21
+#define SSEG_32_ADDR 0x20
 
 // GPIO expander register size.
 #define SSEG_REG_SIZE 1U
 
 // Configuration registers that set if a pin is INPUT/OUTPUT.
-#define SSEG_CONFIG_1 0x06
-#define SSEG_CONFIG_2 0x07
+#define SSEG_CONFIG_0 0x06
+#define SSEG_CONFIG_1 0x07
 
 // Control registers that set which LEDs are driven.
-#define SSEG_OUTPUT_1 0x02
 #define SSEG_OUTPUT_0 0x03
+#define SSEG_OUTPUT_1 0x02
 
 // SSEG Encoder Values
 #define DISP_0 0x3F
@@ -46,10 +46,10 @@
 void config_sseg_display(void)
 {
    // Set all driver pins as outputs:
+   i2c_transmit_data(SSEG_32_ADDR, SSEG_REG_SIZE, SSEG_CONFIG_0, 0x00);
    i2c_transmit_data(SSEG_32_ADDR, SSEG_REG_SIZE, SSEG_CONFIG_1, 0x00);
-   i2c_transmit_data(SSEG_32_ADDR, SSEG_REG_SIZE, SSEG_CONFIG_2, 0x00);
+   i2c_transmit_data(SSEG_10_ADDR, SSEG_REG_SIZE, SSEG_CONFIG_0, 0x00);
    i2c_transmit_data(SSEG_10_ADDR, SSEG_REG_SIZE, SSEG_CONFIG_1, 0x00);
-   i2c_transmit_data(SSEG_10_ADDR, SSEG_REG_SIZE, SSEG_CONFIG_2, 0x00);
 
    return;
 }
