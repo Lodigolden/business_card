@@ -9,8 +9,8 @@
 // Definition(s)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // GPIO expander I2C addresses.
-#define SSEG_01_ADDR 0x20
-#define SSEG_23_ADDR 0x21
+#define SSEG_32_ADDR 0x20
+#define SSEG_10_ADDR 0x21
 
 // GPIO expander register size.
 #define SSEG_REG_SIZE 1U
@@ -21,7 +21,7 @@
 
 // Control registers that set which LEDs are driven.
 #define SSEG_OUTPUT_1 0x02
-#define SSEG_OUTPUT_2 0x03
+#define SSEG_OUTPUT_0 0x03
 
 // SSEG Encoder Values
 #define DISP_0 0x3F
@@ -46,10 +46,10 @@
 void config_sseg_display(void)
 {
    // Set all driver pins as outputs:
-   i2c_transmit_data(SSEG_01_ADDR, SSEG_REG_SIZE, SSEG_CONFIG_1, 0x00);
-   i2c_transmit_data(SSEG_01_ADDR, SSEG_REG_SIZE, SSEG_CONFIG_2, 0x00);
-   i2c_transmit_data(SSEG_23_ADDR, SSEG_REG_SIZE, SSEG_CONFIG_1, 0x00);
-   i2c_transmit_data(SSEG_23_ADDR, SSEG_REG_SIZE, SSEG_CONFIG_2, 0x00);
+   i2c_transmit_data(SSEG_32_ADDR, SSEG_REG_SIZE, SSEG_CONFIG_1, 0x00);
+   i2c_transmit_data(SSEG_32_ADDR, SSEG_REG_SIZE, SSEG_CONFIG_2, 0x00);
+   i2c_transmit_data(SSEG_10_ADDR, SSEG_REG_SIZE, SSEG_CONFIG_1, 0x00);
+   i2c_transmit_data(SSEG_10_ADDR, SSEG_REG_SIZE, SSEG_CONFIG_2, 0x00);
 
    return;
 }
@@ -64,20 +64,20 @@ void set_sseg_digit(uint8_t dig, uint8_t val)
    }
 
    // Set digit.
-   uint8_t device = SSEG_01_ADDR;
+   uint8_t device = SSEG_32_ADDR;
    uint8_t output = SSEG_OUTPUT_1;
 
    switch (dig)
    {
       case 0U:
-         device = SSEG_23_ADDR;
-         output = SSEG_OUTPUT_2;
+         device = SSEG_10_ADDR;
+         output = SSEG_OUTPUT_0;
          break;
       case 1U:
-         device = SSEG_23_ADDR;
+         device = SSEG_10_ADDR;
          break;
       case 2U:
-         output = SSEG_OUTPUT_2;
+         output = SSEG_OUTPUT_0;
          break;
       case 3U:
          break;
