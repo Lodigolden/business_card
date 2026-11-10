@@ -14,9 +14,9 @@
 // Temperature sensor register size.
 #define TMP_SNSR_REG_SIZE 2U
 
-// Temperature reading register.
-#define TEMP_READ 0x00
-
+// Registers
+#define TEMP_REG 0x00 // Read-only, returns temperature.
+#define CONFIG_REG 0x01 // Configures device.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void config_temp_sensor(void)
 {
@@ -27,9 +27,7 @@ void config_temp_sensor(void)
 uint16_t read_temp(void)
 {
    uint8_t data[TMP_SNSR_REG_SIZE];
-   i2c_receive_data(TMP_SNSR_ADDR, TMP_SNSR_REG_SIZE, TEMP_READ, &data);
+   i2c_receive_data(TMP_SNSR_ADDR, TMP_SNSR_REG_SIZE, TEMP_REG, &data);
 
-   uint16_t sized_data = ((data[0U] << 8U) | data[1U]);
-
-   return sized_data;
+   return (uint16_t)((data[0U] << 8U) | data[1U]);
 }

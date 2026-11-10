@@ -23,16 +23,26 @@ void system_state_machine(void)
 
    while(1)
    {
-      if (!g_mode)
-      {
-         for (uint8_t idx = 0U; idx < 3U; idx++)
-         {
-            set_sseg_digit(idx, count);
-         }
-         count = (count == 15U) ? 0U : count + 1U;
-      }
+      // if (!g_mode)
+      // {
+      //    for (uint8_t idx = 0U; idx < 3U; idx++)
+      //    {
+      //       set_sseg_digit(idx, count);
+      //    }
+      //    count = (count == 15U) ? 0U : count + 1U;
+      // }
+
 
       uint16_t data = read_temp();
+      uint8_t bit1 = data & 0x000F;
+      uint8_t bit2 = (data >> 4U) & 0x000F;
+      uint8_t bit3 = (data >> 8U) & 0x000F;
+      uint8_t bit4 = (data >> 12U) & 0x000F;
+
+      set_sseg_digit(0, bit1);
+      set_sseg_digit(1, bit2);
+      set_sseg_digit(2, bit3);
+      set_sseg_digit(3, bit4);
 
       __delay_ms(1000);
    }

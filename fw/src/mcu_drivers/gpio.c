@@ -12,11 +12,11 @@
 #define SET_PIN  1U << 6U
 #define SEL_PIN  1U << 7U
 
-// INTCON Bits
+// INTCON Register Bits
 #define GIE 1U << 7U // Global Interrupt Enable
 #define PEIE 1U << 6U // Peripheral Interrupt Enable
 
-// PIE0 Bits
+// PIE0 Register Bits
 #define IOCIE 1U << 4U // Interrupt-on-Change Enable
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

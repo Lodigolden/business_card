@@ -46,6 +46,7 @@
 #define DISP_D 0x5E
 #define DISP_E 0x79
 #define DISP_F 0x71
+#define DISP_DP 0x08
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void config_sseg_display(void)
@@ -75,16 +76,17 @@ void set_sseg_digit(uint8_t dig, uint8_t val)
    switch (dig)
    {
       case 0U:
+         device = SSEG_23_ADDR;
+         output = SSEG_OUTPUT_2;
          break;
       case 1U:
-         output = SSEG_OUTPUT_2;
+         device = SSEG_23_ADDR;
          break;
       case 2U:
-         device = SSEG_23_ADDR;
+         output = SSEG_OUTPUT_2;
          break;
       case 3U:
-         device = SSEG_23_ADDR;
-         output = SSEG_OUTPUT_2;
+         break;
    }
 
    // Set digit value.

@@ -12,36 +12,36 @@
 #define PPS_SCL1 0x07 // SCL Peripheral
 #define PPS_SDA1 0x08 // SDA Peripheral
 
-// SSPxCON1 Bits
+// SSPxCON1 Register Bits
 #define SSPEN (1U << 5U) // Host Synchronous Serial Port Enable
 #define SSPM 8U // Host Synchronous Serail Port Mode Select
 
-// SSPxCON2 Bits
+// SSPxCON2 Register Bits
 #define SEN 1U // Start Condition Enable Bit
 #define PEN 1U << 2U // Stop Condition Enable Bit
 #define RCEN 1U << 3U // Receive Enable Bit
 #define ACKEN 1U << 4U // Acknowledge Sequence Enable Bit
 #define ACKDT 1U << 5U // Acknowledge Data Bit
 
-// RxyI2C Bits
+// RxyI2C Register Bits
 #define TH 1U // I2C Input Thresholds
 #define SLEW 1U << 6U // I2C Slew Rate Limiting Enable
 
 // xxxPPS Bits
 #define PPS_PORTB 1U << 3U // PORT B
 
-// ANSELx Bits
+// ANSELx Register Bits
 #define ANSELx4 1U << 4U // Pin 4
 #define ANSELx6 1U << 6U // Pin 6
 
-// ODCONB Bits
+// ODCONB Register Bits
 #define ODCx4 1U << 4U // Pin 4
 #define ODCx6 1U << 6U // Pin 6
 
-// SSPxADD Bits
+// SSPxADD Register Bits
 #define BAUD_DIV 0x4F // 100kHz BAUD (32MHz FOSC)
 
-// PIR1 Bits
+// PIR1 Register Bits
 #define SSP1IF 1U << 1U // MSSP1 Interrupt Flag
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -84,11 +84,10 @@ void config_i2c(void)
 void i2c_transmit_data(uint8_t addr, size_t reg_size, uint8_t reg, uint8_t *p_data)
 {
    // Convert 7b I2C to 8b I2C address:
-   addr = (uint8_t)(addr << 1U);
+   uint8_t addr_write = (uint8_t)(addr << 1U);
 
    _i2c_start();
-
-   _i2c_write_byte(addr);
+   _i2c_write_byte(addr_write);
    _i2c_write_byte(reg);
    for (size_t idx = 0U; idx < reg_size; idx++)
    {
@@ -103,12 +102,16 @@ void i2c_transmit_data(uint8_t addr, size_t reg_size, uint8_t reg, uint8_t *p_da
 void i2c_receive_data(uint8_t addr, size_t reg_size, uint8_t reg, uint8_t *p_data)
 {
    // Convert 7b I2C to 8b I2C address:
-   addr = (uint8_t)((addr << 1U) | 1U);
+   uint8_t addr_write = (uint8_t)(addr << 1U);
+   uint8_t addr_read = (uint8_t)((addr << 1U) | 1U);
 
    _i2c_start();
 
-   _i2c_write_byte(addr);
+   _i2c_write_byte(addr_write);
    _i2c_write_byte(reg);
+
+   _i2c_start();
+   _i2c_write_byte(addr_read);
    for (size_t idx = 0U; idx < reg_size; idx++)
    {
       *(p_data + idx) = _i2c_read_byte();
