@@ -23,10 +23,9 @@ void read_temp(uint8_t* p_data, bool is_f)
    uint8_t data[TMP_SNSR_REG_SIZE];
    i2c_receive_data(TMP_SNSR_ADDR, TMP_SNSR_REG_SIZE, TEMP_REG, &data);
 
-   uint8_t data_converted = data[0U];
    if (is_f)
    {
-      data_converted = (1.8*data[0U] + 32);
+      data[0U] = (1.8*data[0U] + 32);
    }
 
    if (data[0U] & (1U << 7U)) // Negative Temperature
@@ -35,9 +34,9 @@ void read_temp(uint8_t* p_data, bool is_f)
    }
    else // Positive Temperature
    {
-      *(p_data + 3U) = data_converted / 100U;
-      *(p_data + 2U) = (data_converted % 100U) / 10U;
-      *(p_data + 1U) = (data_converted % 10);
+      *(p_data + 3U) = data[0U] / 100U;
+      *(p_data + 2U) = (data[0U] % 100U) / 10U;
+      *(p_data + 1U) = (data[0U] % 10);
    }
 
    return;
